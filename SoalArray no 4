@@ -1,0 +1,33 @@
+rak_tahu = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+
+harga_per_tahu = 1000
+
+def beli_tahu(uang, jumlah_tahu):
+    global rak_tahu
+    total_harga = jumlah_tahu * harga_per_tahu
+
+    if uang < total_harga:
+        return "Uang tidak cukup untuk membeli {} tahu.".format(jumlah_tahu)
+    
+    total_tahu_tersedia = sum(rak_tahu)
+    if jumlah_tahu > total_tahu_tersedia:
+        return "Jumlah tahu yang diminta melebihi stok yang tersedia."
+
+    sisa_tahu = jumlah_tahu
+    for i in range(len(rak_tahu)):
+        if rak_tahu[i] >= sisa_tahu:
+            rak_tahu[i] -= sisa_tahu
+            break
+        else:
+            sisa_tahu -= rak_tahu[i]
+            rak_tahu[i] = 0
+
+    return "Pembelian berhasil! Anda membeli {} tahu dengan total harga Rp{}.".format(jumlah_tahu, total_harga)
+
+uang = 100_000
+jumlah_tahu = 20
+
+hasil = beli_tahu(uang, jumlah_tahu)
+print(hasil)
+
+print("Kondisi rak setelah pembelian:", rak_tahu)
